@@ -22,7 +22,7 @@ let cached = global.mongoose;
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
-
+}
 
 // Use ! only when you're sure the variable is not undefined. In this case, it's safe because you initialize it right before.
 export async function dbConnect(): Promise<Mongoose> {
