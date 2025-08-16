@@ -13,11 +13,15 @@ interface MongooseCache {
   promise: Promise<Mongoose> | null;
 }
 
+
+declare global {
+  var mongoose: MongooseCache | undefined;
+}
 // Preserve connection cache in dev (avoids reconnecting on hot reload)
-let cached = (global as any).mongoose as MongooseCache;
+let cached = global.mongoose;
 
 if (!cached) {
-  cached = (global as any).mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null };
 }
 
 export async function dbConnect(): Promise<Mongoose> {
