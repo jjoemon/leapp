@@ -36,9 +36,6 @@ export async function dbConnect(): Promise<Mongoose> {
   return cached!.conn;
 }
 
-  cached.conn = await cached.promise;
-  console.log("Connected to MongoDB Atlas");
-  return cached.conn;
-}
+
 
 export default dbConnect;
