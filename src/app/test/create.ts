@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"; // or NextApiResponse for pages/api
-import { dbConnect } from "@/lib/mongodb";
-import { Item } from "@/models/item";
+import { dbConnect } from "@/app/lib/mongodb";
+import { Item } from "@/app/models/item";
 
 export async function POST(req: Request) {
   try {
