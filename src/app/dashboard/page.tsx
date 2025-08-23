@@ -3,6 +3,15 @@ import { lusitana } from "@/app/ui/fonts";
 import dbConnect from "@/app/lib/mongodb";
 import Entry from "@/app/models/entry";
 
+// At the top of your file
+interface Entry {
+  userId: string;
+  title: string;
+  description: string;
+  createdAt?: Date; // <-- optional if Mongoose might not always set it
+  updatedAt?: Date;
+
+}
 // This is now an async server component
 export default async function Page() {
 // Connect to MongoDB
@@ -38,13 +47,15 @@ return (
         </h3>
 
         <ul className="space-y-4">
-          {entries.map((entry: any) => (
-            <li key={entry._id} className="rounded-lg border p-4 shadow max-w-xl">
+          {entries.map((entry: Entry) => (
+            <li key={entry.userId} className="rounded-lg border p-4 shadow max-w-xl">
               <h3 className="font-semibold">{entry.userId}</h3>
               <h4 className="font-semibold">{entry.title}</h4>
               <p className="text-gray-600">{entry.description}</p>
               <small className="text-gray-400">
-                {new Date(entry.createdAt).toLocaleString()}
+                {entry.createdAt
+                  ? new Date(entry.createdAt).toLocaleString()
+                  : "No date available"}
               </small>
             </li>
           ))}
