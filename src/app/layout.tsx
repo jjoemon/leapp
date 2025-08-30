@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { inter } from '@/app/ui/fonts';
-import Header from '@/app/ui/header';
+import HeaderWrapper from '@/app/ui/header-wrapper';
 import SideNav from '@/app/ui/sidenav';
+import Providers from "@/app/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,34 +23,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const isSignedIn = false; // This could later come from auth context
-
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-    <meta       title="The Big Conversation"/>
+    <head>
+      <link rel="icon" href="/favicon.ico" />
+    </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}>
-        {/* Common Header */}
-        <Header
-          title="The Big Conversation"
-          isSignedIn={isSignedIn}
-          onSignOut={() => alert('Signed out!')}
-        />
-
-        {/* Common Page Layout: sidebar + main content */}
-        <div className="flex min-h-screen flex-col md:flex-row">
-          {/* Sidebar visible only on medium+ screens */}
-          <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
-            <SideNav />
-          </aside>
-
-          {/* Page-specific content injected here */}
-          <main className="flex-1 p-4 sm:p-6">
-            {children}
-          </main>
-        </div>
+        <Providers>
+          <HeaderWrapper />
+          <div className="flex min-h-screen flex-col md:flex-row">
+            <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
+              <SideNav />
+            </aside>
+            <main className="flex-1 p-4 sm:p-6">{children}</main>
+          </div>
+        </Providers>
       </body>
     </html>
   );

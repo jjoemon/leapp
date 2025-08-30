@@ -1,5 +1,5 @@
 export default function Page() {
   return (
-    <p>Dashboard Page</p>
+    <p>Learners Page</p>
   )
 }

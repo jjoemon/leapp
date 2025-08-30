@@ -1,30 +1,28 @@
 
 // lib/mongodb.ts
 import mongoose, { Mongoose } from "mongoose";
+import { MongoClient } from "mongodb";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
-
 if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
+// ---- Mongoose connection (your existing code) ----
 interface MongooseCache {
   conn: Mongoose | null;
   promise: Promise<Mongoose> | null;
 }
 
-
 declare global {
   var mongoose: MongooseCache | undefined;
 }
-// Preserve connection cache in dev (avoids reconnecting on hot reload)
-let cached = global.mongoose;
 
+let cached = global.mongoose;
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-// Use ! only when you're sure the variable is not undefined. In this case, it's safe because you initialize it right before.
 export async function dbConnect(): Promise<Mongoose> {
   if (cached!.conn) return cached!.conn;
 
@@ -36,6 +34,20 @@ export async function dbConnect(): Promise<Mongoose> {
   return cached!.conn;
 }
 
+// ---- Native MongoDB client for NextAuth Adapter ----
+let client: MongoClient;
+let clientPromise: Promise<MongoClient>;
 
+declare global {
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
+}
 
+if (!global._mongoClientPromise) {
+  client = new MongoClient(MONGODB_URI);
+  global._mongoClientPromise = client.connect();
+}
+
+clientPromise = global._mongoClientPromise;
+
+export { clientPromise };
 export default dbConnect;
