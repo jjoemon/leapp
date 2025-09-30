@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Page Component matches snapshot 1`] = `
+<div>
+  <section
+    class="flex flex-col md:flex-row gap-6"
+  >
+    <div
+      class="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 p-4 sm:px-6 sm:py-6 md:w-2/5 md:px-10"
+    >
+      <p
+        class="text-lg sm:text-xl text-gray-800 md:text-3xl md:leading-normal"
+      >
+        <strong>
+          Welcome to Acme.
+        </strong>
+         This is the example for the
+         
+        <a
+          class="text-blue-500"
+          href="https://nextjs.org/learn/"
+        >
+          Next.js Learn Course
+        </a>
+        , brought to you by Vercel.
+      </p>
+      <a
+        href="/login"
+      >
+        <span>
+          Log in
+        </span>
+        <svg
+          aria-hidden="true"
+          class="w-5 md:w-6"
+          data-slot="icon"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </a>
+    </div>
+    <div
+      class="flex items-center justify-center p-4 sm:p-6 md:w-3/5 md:px-28 md:py-12"
+    >
+      <img
+        alt="Screenshots of the dashboard project showing desktop version"
+        class="rounded-lg shadow-lg w-full max-w-md md:max-w-full"
+        height="760"
+        src="/joemon.jpg"
+        width="1000"
+      />
+    </div>
+  </section>
+</div>
+`;

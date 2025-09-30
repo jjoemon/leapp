@@ -70,7 +70,7 @@ src/
   tests/                    # Unit/integration tests (if not colocated)
 
 
-##  Directory Setup for Auth
+##  Directory Setup
 
 src/
   app/

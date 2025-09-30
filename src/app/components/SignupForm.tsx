@@ -22,7 +22,7 @@ export default function SignupForm() {
 
     // Signup/Login via CredentialsProvider
     const res = await signIn("credentials", {
-      redirect: false,
+      redirect: true,
       email,
       password,
       gdprConsent,

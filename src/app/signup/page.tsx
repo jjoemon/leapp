@@ -1,4 +1,4 @@
-// src/app/signup/page.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -9,12 +9,19 @@ export default function SignupPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (password !== repeatPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -33,7 +40,7 @@ export default function SignupPage() {
       // Automatically sign in the user after signup
       await signIn("credentials", { email, password, redirect: false });
       router.push("/profile-setup"); // redirect to profile setup
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
@@ -74,10 +81,22 @@ export default function SignupPage() {
           />
         </div>
 
+        <div>
+          <label className="block mb-1">Repeat Password</label>
+          <input
+            type="password"
+            value={repeatPassword}
+            onChange={(e) => setRepeatPassword(e.target.value)}
+            placeholder="Repeat password"
+            className="border rounded w-full p-2"
+            required
+          />
+        </div>
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
+          className="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-green-600"
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>

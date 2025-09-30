@@ -9,7 +9,7 @@ export default function SignInPage() {
 
   const handleEmailSignIn = () => {
     if (!email) return;
-    signIn("email", { email, callbackUrl: "/profile-setup" });
+    signIn("email", { email, callbackUrl: "/profile" });
   };
 
   return (
@@ -18,7 +18,7 @@ export default function SignInPage() {
 
       <button
         className="mb-2 px-4 py-2 bg-blue-500 text-white rounded"
-        onClick={() => signIn("google", { callbackUrl: "/profile-setup" })}
+        onClick={() => signIn("google", { callbackUrl: "/profile" })}
       >
         Sign in with Google
       </button>
