@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { inter } from '@/app/components/ui/fonts';
 import HeaderWrapper from '@/app/components/ui/header-wrapper';
-import SideNav from '@/app/components/ui/sidenav';
+import SubHeader from '@/app/components/ui/SubHeader';
+
 import Providers from "@/app/providers";
 import ErrorBoundary from "@/app/components/layout/ErrorBoundary";
 
@@ -18,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Big Conversation",
+  title: "gLearn - Games & Learning",
   description: "created by Joemon Jose",
 };
 
@@ -33,11 +34,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}>
         <Providers>
           <HeaderWrapper />
+          <SubHeader />
           <ErrorBoundary>
             <div className="flex min-h-screen flex-col md:flex-row">
-              <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
-                <SideNav />
-              </aside>
+
               <main className="flex-1 p-4 sm:p-6">{children}</main>
             </div>
           </ErrorBoundary>
@@ -46,3 +46,7 @@ export default function RootLayout({
     </html>
   );
 }
+
+// <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
+//   <SideNav />
+// </aside>

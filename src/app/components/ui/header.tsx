@@ -3,6 +3,7 @@
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import AcmeLogo from "@/app/components/ui/acme-logo";
 
 interface HeaderProps {
   title: string;
@@ -24,11 +25,22 @@ export default function Header({ title }: HeaderProps) {
     : 'U';
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-200 relative">
-      <h1 className="text-xl font-bold">{title}</h1>
+    <header className="flex justify-between items-center text-black p-4 bg-orange-700 relative">
 
+      { /* Left spacer */}
+      <div className="w-1/3">
+      <AcmeLogo/>
+      </div>
+
+
+      {/* Centered title */}
+      <div className="w-1/3 flex justify-center">
+        <h1 className="text-xl font-bold">{title}</h1>
+      </div>
+
+      {/* Right controls */}
       {session ? (
-        <div className="relative">
+        <div className="w-1/3 flex justify-end relative">
           <button
             onClick={toggleDropdown}
             className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold"
