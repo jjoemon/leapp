@@ -47,20 +47,21 @@ export default function SignInPage() {
 
     if (res?.error) {
       setError(errorMessages[res.error] || "Invalid email or password");
-    } else {
+    } 
+    else {
       router.push("/profile");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 space-y-8 bg-gray-50">
+    <div className="flex flex-col items-center justify-center p-6 space-y-8 bg-gray-50">
       <h1 className="text-3xl font-bold">Sign In</h1>
 
       {error && <p className="text-red-500">{error}</p>}
 
       <form
         onSubmit={handleEmailPasswordLogin}
-        className="space-y-4 w-full max-w-md bg-white p-6 rounded shadow"
+        className="space-y-4 bg-white p-6 rounded shadow max-w-xl"
       >
         <h2 className="text-xl font-semibold">Email + Password</h2>
 
@@ -85,10 +86,12 @@ export default function SignInPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer"
         >
           {loading ? "Signing in..." : "Sign In"}
         </button>
+
+        <p className="text-md">Haven't created an account yet? Register <a className="text-blue-500" href="/signup">here</a></p>
       </form>
     </div>
   );
