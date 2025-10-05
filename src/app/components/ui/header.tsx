@@ -25,7 +25,7 @@ export default function Header({ title }: HeaderProps) {
 
   return (
     <header className="flex justify-between items-center p-4 bg-gray-200 relative">
-      <h1 className="text-xl font-bold">{title}</h1>
+      <h1 className="text-xl font-bold text-black">{title}</h1>
 
       {session ? (
         <div className="relative">
@@ -56,7 +56,7 @@ export default function Header({ title }: HeaderProps) {
       ) : (
         <button
           onClick={() => router.push('/signin')}
-          className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+          className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700 cursor-pointer"
         >
           Sign In
         </button>

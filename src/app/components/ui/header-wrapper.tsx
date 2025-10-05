@@ -9,7 +9,7 @@ export default function HeaderWrapper() {
 
   return (
     <Header
-      title="The Big Conversation"
+      title="Interactive Event Timeline Visualiser"
       isSignedIn={isSignedIn}
       onSignOut={() => signOut({ callbackUrl: "/" })}
     />
