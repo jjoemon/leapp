@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Big Conversation",
-  description: "created by Joemon Jose",
+  title: "Event Timeline Visualiser",
+  description: "created by Craig Sinclair",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
         <Providers>
           <HeaderWrapper />
           <ErrorBoundary>
-            <div className="flex min-h-screen flex-col md:flex-row">
+            <div className="flex flex-col md:flex-row bg-gray-100">
               <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
                 <SideNav />
               </aside>
