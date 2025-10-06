@@ -5,12 +5,12 @@ import Header from '@/app/components/ui/header';
 
 export default function HeaderWrapper() {
   const { data: session } = useSession();
-  const isSignedIn = !!session;
+  const isSignedIn = !!session; //why the !!?
 
   return (
     <Header
       title="Games & Learning"
-      isSignedIn={isSignedIn}
+      isSignedIn={isSignedIn} //not used in header?
       onSignOut={() => signOut({ callbackUrl: "/" })}
     />
   );
