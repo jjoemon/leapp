@@ -73,6 +73,8 @@ export default function Header({ title }: HeaderProps) {
         >
           Sign In
         </button>
+
+        // sign up button?
       )}
     </header>
   );
