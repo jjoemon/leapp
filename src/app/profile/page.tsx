@@ -132,7 +132,7 @@ export default function ProfileSetupPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-4 bg-white p-6 rounded shadow"
+        className="w-full max-w-md space-y-4 p-6 rounded shadow"
       >
         <h2 className="text-2xl font-bold">Step 1: Basic Info</h2>
 
