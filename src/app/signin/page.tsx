@@ -54,14 +54,14 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 space-y-8 bg-gray-50">
+    <div className="flex flex-col items-center justify-center p-6 space-y-8">
       <h1 className="text-3xl font-bold">Sign In</h1>
 
       {error && <p className="text-red-500">{error}</p>}
 
       <form
         onSubmit={handleEmailPasswordLogin}
-        className="space-y-4 bg-white p-6 rounded shadow max-w-xl"
+        className="space-y-4 p-6 rounded shadow max-w-xl"
       >
         <h2 className="text-xl font-semibold">Email + Password</h2>
 

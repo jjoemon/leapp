@@ -24,8 +24,8 @@ export default function Header({ title }: HeaderProps) {
     : 'U';
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-200 relative">
-      <h1 className="text-xl font-bold text-black">{title}</h1>
+    <header className="flex justify-between items-center p-4 relative">
+      <h1 className="text-xl font-bold">{title}</h1>
 
       {session ? (
         <div className="relative">
@@ -37,7 +37,7 @@ export default function Header({ title }: HeaderProps) {
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10">
+            <div className="absolute right-0 mt-2 w-40 border rounded shadow-lg z-10">
               <button
                 onClick={() => router.push('/profile')}
                 className="block w-full text-left px-4 py-2 hover:bg-gray-100"

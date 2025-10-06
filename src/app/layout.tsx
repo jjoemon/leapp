@@ -34,8 +34,8 @@ export default function RootLayout({
         <Providers>
           <HeaderWrapper />
           <ErrorBoundary>
-            <div className="flex flex-col md:flex-row bg-gray-100">
-              <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
+            <div className="flex flex-col md:flex-row">
+              <aside className="hidden md:block md:w-64 p-4">
                 <SideNav />
               </aside>
               <main className="flex-1 p-4 sm:p-6">{children}</main>
