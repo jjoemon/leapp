@@ -33,8 +33,8 @@ export default function RootLayout({
     </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}>
         <Providers>
-          <HeaderWrapper />
-          <SubHeader />
+          <HeaderWrapper /> 
+          
           <ErrorBoundary>
             <div className="flex min-h-screen flex-col md:flex-row">
 

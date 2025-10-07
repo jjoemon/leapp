@@ -1,5 +1,5 @@
 // src/components/SubHeader.tsx
-
+//Note: Probably delete
 import Link from 'next/link';
 
 export default function SubHeader() {
