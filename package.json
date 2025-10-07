@@ -18,11 +18,11 @@
     "i": "^0.3.7",
     "mongodb": "^5.9.2",
     "mongoose": "^8.17.1",
-    "next": "^15.5.2",
+    "next": "^15.5.4",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.3",
