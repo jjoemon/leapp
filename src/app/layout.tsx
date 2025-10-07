@@ -19,8 +19,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "gLearn - Games & Learning",
-  description: "created by Joemon Jose",
+  title: "Discourse Platform",
+  description: "created by Joemon Jose and Bartosz Zmuda",
 };
 
 export default function RootLayout({

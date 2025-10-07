@@ -7,6 +7,7 @@ import AcmeLogo from "@/app/components/ui/acme-logo";
 
 interface HeaderProps {
   title: string;
+  // add other props? what's the purpose if not used?
 }
 
 export default function Header({ title }: HeaderProps) {
@@ -72,6 +73,8 @@ export default function Header({ title }: HeaderProps) {
         >
           Sign In
         </button>
+
+        // sign up button?
       )}
     </header>
   );
