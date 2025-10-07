@@ -8,8 +8,6 @@ import AcmeLogo from '@/app/components/ui/acme-logo';
 import Link from 'next/link';
 import { User as UserIcon, LogOut } from 'lucide-react';
 
-
-
 export default function Header() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -44,6 +42,7 @@ export default function Header() {
         .toUpperCase()
     : 'U';
 
+    // structure better?
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/dashboard', label: 'Dashboard' },
@@ -58,7 +57,7 @@ export default function Header() {
           'px-3 py-2 rounded-xl text-sm font-medium transition-colors',
           'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500',
           isActive
-            ? 'text-white bg-blue-600/90 hover:bg-blue-600'
+            ? 'text-white bg-violet-600/90 hover:bg-violet-600'
             : 'text-slate-200 hover:text-white hover:bg-white/10',
         ].join(' ')}
       >

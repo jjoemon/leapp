@@ -1,5 +1,7 @@
 "use client";
-
+//NOTE: What's the point of the header-wrapper? 
+// I suppose it can be used to change the subtitle depending on the page?
+      
 import { useSession, signOut } from "next-auth/react";
 import Header from '@/app/components/ui/header';
 
@@ -10,8 +12,10 @@ export default function HeaderWrapper() {
 
   return (
     <Header
-      title="Arguments and evidence"          //NOTE: What's the point of the header-wrapper? I suppose it can be used to change the subtitle depending on the page?
-      //Consider removing
+     
+    
+    //title="Arguments and evidence"          
+      // //Consider removing
      // isSignedIn={isSignedIn} //not used in header?
      // onSignOut={() => signOut({ callbackUrl: "/" })}
     />
