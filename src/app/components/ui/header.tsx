@@ -8,11 +8,9 @@ import AcmeLogo from '@/app/components/ui/acme-logo';
 import Link from 'next/link';
 import { User as UserIcon, LogOut } from 'lucide-react';
 
-interface HeaderProps {
-  title?: string;
-}
 
-export default function Header({ title }: HeaderProps) {
+
+export default function Header() {
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
