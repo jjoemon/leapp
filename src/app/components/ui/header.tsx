@@ -4,6 +4,7 @@ import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AcmeLogo from "@/app/components/ui/acme-logo";
+import Link from 'next/link';
 
 interface HeaderProps {
   title: string;
@@ -26,7 +27,7 @@ export default function Header({ title }: HeaderProps) {
     : 'U';
 
   return (
-    <header className="flex justify-between items-center text-black p-4 bg-orange-700 relative">
+    <header className="flex justify-between items-center text-black p-4 bg-gray-700 relative">
 
       { /* Left spacer */}
       <div className="w-1/3">
@@ -35,9 +36,10 @@ export default function Header({ title }: HeaderProps) {
 
 
       {/* Centered title */}
-      <div className="w-1/3 flex justify-center">
-        <h1 className="text-xl font-bold">{title}</h1>
-      </div>
+      <nav className="flex items-center justify-between max-w-7xl mx-auto">
+        <Link href="/" className="text-blue-600ut"> Home </Link>
+        <Link href="/" className="text-blue-600ut"> Dashboard</Link>
+      </nav>
 
       {/* Right controls */}
       {session ? (
@@ -67,14 +69,19 @@ export default function Header({ title }: HeaderProps) {
           )}
         </div>
       ) : (
-        <button
-          onClick={() => router.push('/signin')}
-          className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
-        >
-          Sign In
-        </button>
+        <div className="flex gap-x-4">
+          <button
+            onClick={() => router.push('/signin')}
+            className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"
+          >
+            Sign In
+          </button>
 
-        // sign up button?
+          <button         
+            onClick={() => router.push('/signup')}
+            className="rounded bg-blue-600 px-3 py-1 text-white hover:bg-blue-700"> 
+            Sign Up </button>
+          </div>
       )}
     </header>
   );
