@@ -36,7 +36,7 @@ export default function RootLayout({
           <HeaderWrapper /> 
           
           <ErrorBoundary>
-            <div className="flex min-h-screen flex-col md:flex-row">
+            <div className="flex min-h-screen flex-col md:flex-row bg-zinc-900">
 
               <main className="flex-1 p-4 sm:p-6">{children}</main>
             </div>

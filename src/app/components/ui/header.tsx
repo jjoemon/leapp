@@ -46,6 +46,10 @@ export default function Header() {
   const navItems = [
     { href: '/', label: 'Home' },
     { href: '/dashboard', label: 'Dashboard' },
+    { href: '/topics', label: 'Topics'},
+    {href: '/about', label:'About'},
+    { href: '/resources', label: 'Resources' /*For people to learn how to debate, evaluate sources perhaps?*/}
+
   ];
 
   const NavLink = ({ href, label }: { href: string; label: string }) => {
@@ -67,7 +71,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-gradient-to-r from-gray-800/95 via-gray-800/95 to-gray-800/95 backdrop-blur supports-[backdrop-filter]:bg-gray-900/70 shadow-lg">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-gradient-to-r from-zinc-800/95 via-zinc-800/95 to-zinc-800/95 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/70 shadow-lg">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Left: Brand */}
