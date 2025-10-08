@@ -41,7 +41,11 @@ export default function SignupPage() {
       await signIn("credentials", { email, password, redirect: false });
       router.push("/profile-setup"); // redirect to profile setup
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -51,11 +55,11 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-4 bg-white p-6 rounded shadow"
+        className="w-full max-w-md space-y-4 bg-zinc-500/13 p-6 rounded shadow"
       >
         <h2 className="text-2xl font-bold">Sign Up</h2>
 
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-purple-500">{error}</p>}
 
         <div>
           <label className="block mb-1">Email</label>
@@ -96,7 +100,7 @@ export default function SignupPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-red-500 text-white py-2 px-4 rounded hover:bg-green-600"
+          className="w-full bg-violet-500 text-white py-2 px-4 rounded hover:bg-green-600"
         >
           {loading ? "Signing up..." : "Sign Up"}
         </button>
