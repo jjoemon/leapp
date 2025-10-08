@@ -38,17 +38,17 @@ export default function Page() {
             <FeatureCard
               icon={<MessageSquare className="h-5 w-5 text-violet-400" />}
               title="Structured Discussions"
-              desc="Debates follow a clear structure — claims, counterarguments, and citations — ensuring clarity and fairness."
+              desc="placeholder"
             />
             <FeatureCard
               icon={<CheckCircle2 className="h-5 w-5 text-violet-400" />}
               title="Verified Sources"
-              desc="Support every claim with citations from reliable sources. The platform encourages credibility and transparency."
+              desc="placeholder"
             />
             <FeatureCard
               icon={<Lightbulb className="h-5 w-5 text-violet-400" />}
               title="Collaborative Learning"
-              desc="Engage respectfully, challenge ideas, and learn from diverse perspectives through evidence-based reasoning."
+              desc="placeholder"
             />
           </div>
         </div>
@@ -61,7 +61,7 @@ export default function Page() {
             Help shape a healthier online discourse
           </h2>
           <p className="mt-3 text-zinc-300">
-            Join debates that value accuracy, reasoning, and collaboration. Build arguments that stand on evidence, not noise.
+            Join debates that value accuracy, reasoning, and collaboration. Build arguments that stand on evidence.
           </p>
           <div className="mt-6 flex items-center justify-center gap-4">
             <Link href="/signup" className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-semibold text-white hover:bg-violet-500">
