@@ -41,4 +41,24 @@ describe("GET /api/fetch-timelines", () => {
         expect(data.message).toEqual("Successfully fetched timelines from database");
         expect(data.timelines).toEqual(mockExpectedTimelineData);
     });
+
+    it("should handle case of empty timelines response", async () => {
+        mockLean.mockResolvedValue([]);
+
+        const result = await GET();
+        const data = await result.json();
+
+        expect(data.success).toBe(true);
+        expect(data.message).toEqual("Successfully fetched timelines from database");
+        expect(data.timelines).toEqual([]);
+    });
+
+    it("handles database error correctly in response", async () => {
+        mockLean.mockRejectedValue(new Error("DB error"));
+        const result = await GET();
+        const data = await result.json();
+
+        expect(data.success).toBe(false);
+        expect(data.error).toEqual("Failed to retrieve timelines from database");
+    })
 });
