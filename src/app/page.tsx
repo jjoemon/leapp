@@ -1,17 +1,23 @@
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import DateCard from '@/app/components/ui/DateCard';
 
 export default function Page() {
   return (
-     <section
-      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-gray-100 p-6"
-      style={{ backgroundImage: "url('/background1.jpg')" }}
+    <section
+    className="min-h-screen w-full flex flex-col items-center justify-center justify-start overflow-x-hidden p-6 bg-cover bg-center bg-no-repeat"
+    style={{ backgroundImage: "url('/background1.jpg')" }}
     >
       {/* Left text section */}
-      <div className="flex flex-col justify-center gap-6 rounded-lg bg-white/70   p-4 sm:px-6 sm:py-6 -full h-screen">
-        <p className="text-lg sm:text-xl text-gray-800 md:text-3xl md:leading-normal">
-          <strong>Welcome to eDebator.</strong> here we argue for the{' '}
+      <div className="w-full max-w-sm md:max-w-[750px] h-[70vh] rounded-2xl bg-purple/80 shadow-2xl backdrop-blur-lg p-4 sm:p-6 flex flex-col justify-between">
+        {/* --- Top section: DateCard --- */}
+        <div className="flex justify-center mb-2 sm:mb-4 mt-0">
+          <DateCard className="mt-0" />
+        </div>
+
+      <p>
+      <strong>Welcome to eDebator.</strong> here we argue for the{' '}
           <a href="https://nextjs.org/learn/" className="text-blue-800" target="_blank" rel="noopener noreferrer">
             Next.js Learn Course,
           </a> where we will argue with evidence
@@ -30,3 +36,5 @@ export default function Page() {
     </section>
   );
 }
+
+// date card above div text-lg sm:text-xl justify-start text-white md:text-3xl md:leading-normal

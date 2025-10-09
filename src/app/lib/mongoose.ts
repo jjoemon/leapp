@@ -1,4 +1,4 @@
-// lib/mongoose.ts
+// /app/lib/mongoose.ts
 import mongoose, { Mongoose } from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
@@ -15,18 +15,15 @@ declare global {
   var mongoose: MongooseCache | undefined;
 }
 
-let cached = global.mongoose;
-if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
-}
+global.mongoose ||= { conn: null, promise: null };
 
 export async function dbConnect(): Promise<Mongoose> {
-  if (cached.conn) return cached.conn;
+  if (global.mongoose!.conn) return global.mongoose!.conn;
 
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose);
+  if (!global.mongoose!.promise) {
+    global.mongoose!.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose);
   }
 
-  cached.conn = await cached.promise;
-  return cached.conn;
+  global.mongoose!.conn = await global.mongoose!.promise;
+  return global.mongoose!.conn;
 }

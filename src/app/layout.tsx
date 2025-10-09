@@ -31,22 +31,20 @@ export default function RootLayout({
     <head>
       <link rel="icon" href="/favicon.ico" />
     </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${inter.className} antialiased flex flex-col min-h-screen`}>
         <Providers>
           <HeaderWrapper />
           <SubHeader />
           <ErrorBoundary>
-            <div className="flex min-h-screen flex-col md:flex-row">
-
-              <main className="flex-1 p-4 sm:p-6">{children}</main>
-            </div>
+              <main className="flex-1 flex flex-col justify-start m-0 p-0">{children}</main>
           </ErrorBoundary>
         </Providers>
       </body>
     </html>
   );
 }
-
+// flex min-h-screen flex-col justify-startmd:flex-row
+// p-4 sm:p-6
 // <aside className="hidden md:block md:w-64 bg-gray-100 p-4">
 //   <SideNav />
 // </aside>

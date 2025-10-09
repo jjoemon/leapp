@@ -41,7 +41,12 @@ export default function SignupPage() {
       await signIn("credentials", { email, password, redirect: false });
       router.push("/profile-setup"); // redirect to profile setup
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unexpected error occurred");
+        }
+
     } finally {
       setLoading(false);
     }
