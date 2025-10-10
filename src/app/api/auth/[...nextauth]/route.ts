@@ -43,10 +43,11 @@ const handler = NextAuth({
             email,
             passwordHash: hashed,
             authProvider: 'password',
-            gdprConsent: true,
+            gdprConsent: {accepted: true},
             profileCompleted: false,
           });
-        } else {
+        } 
+        else {
           const valid = await comparePassword(password, user.passwordHash!);
           if (!valid) return null;
         }
@@ -65,8 +66,8 @@ const handler = NextAuth({
         if (!existing) {
           await createUser({
             email: user.email,
-            name: user.name,
-            authProvider: 'password',
+            name: user.name || "",
+            authProvider: "password",
           });
         }
       }
