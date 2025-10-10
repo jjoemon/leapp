@@ -43,6 +43,5 @@ jobs:
         run: pnpm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
-          DB_URI: ${{ secrets.DB_URI }}
-          MONGO_DB: ${{ secrets.MONGO_DB }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
