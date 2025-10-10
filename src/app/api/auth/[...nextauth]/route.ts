@@ -1,5 +1,3 @@
-'use server';
-
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import mongoose from 'mongoose';
@@ -42,8 +40,12 @@ const handler = NextAuth({
           user = await createUser({
             email,
             passwordHash: hashed,
-            authProvider: 'password',
-            gdprConsent: {accepted: true},
+            authProvider: "password",
+            gdprConsent: {
+              accepted: true,
+              acceptedAt: new Date(),
+              version: "1.0",
+            },
             profileCompleted: false,
           });
         } 
@@ -81,7 +83,9 @@ const handler = NextAuth({
     },
 
     async session({ session, token }) {
-      if (token?.id) session.user.id = token.id;
+      if(session.user && typeof token?.id === "string"){
+        session.user.id = token.id;
+      }
       return session;
     },
   },

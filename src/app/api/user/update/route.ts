@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
-import User from "@/models/UserSchema";
-import dbConnect from "@/lib/dbConnect"; // your mongoose connector
+import User from "@/app/models/user";
+import { dbConnect } from "@/app/lib/mongoose";
+import { authOptions } from "@/app/lib/auth"; 
 
 export async function POST(req: Request) {
   await dbConnect();
