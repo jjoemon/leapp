@@ -1,17 +1,11 @@
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import mongoose from 'mongoose';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 
 import clientPromise from '@/app/lib/mongodb';
 import { findUserByEmailOrPhone, createUser } from '@/app/services/authService';
 import { hashPassword, comparePassword } from '@/app/services/passwordService';
-
-async function connectDB() {
-  if (mongoose.connection.readyState === 0) {
-    await mongoose.connect(process.env.MONGODB_URI!);
-  }
-}
+import { dbConnect } from '@/app/lib/mongoose';
 
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -30,7 +24,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         const { email, password, gdprConsent } = credentials!;
-        await connectDB();
+        await dbConnect();
 
         let user = await findUserByEmailOrPhone(email);
 
@@ -60,7 +54,7 @@ const handler = NextAuth({
   ],
   callbacks: {
     async signIn({ user }) {
-      await connectDB();
+      await dbConnect();
 
       if (user.email) {
         const existing = await findUserByEmailOrPhone(user.email);
