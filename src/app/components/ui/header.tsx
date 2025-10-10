@@ -29,7 +29,7 @@ export default function Header({ title, isSignedIn, onSignOut }: HeaderProps) {
     <header className="flex justify-between items-center p-4 relative">
       <h1 className="text-xl font-bold">{title}</h1>
 
-      {session ? (
+      {isSignedIn ? (
         <div className="relative">
           <button
             onClick={toggleDropdown}

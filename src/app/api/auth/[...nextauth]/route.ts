@@ -63,7 +63,7 @@ const handler = NextAuth({
       await connectDB();
 
       if (user.email) {
-        let existing = await findUserByEmailOrPhone(user.email);
+        const existing = await findUserByEmailOrPhone(user.email);
 
         if (!existing) {
           await createUser({
@@ -81,7 +81,6 @@ const handler = NextAuth({
       if (user?.id) token.id = user.id;
       return token;
     },
-
     async session({ session, token }) {
       if(session.user && typeof token?.id === "string"){
         session.user.id = token.id;

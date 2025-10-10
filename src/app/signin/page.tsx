@@ -91,7 +91,7 @@ export default function SignInPage() {
           {loading ? "Signing in..." : "Sign In"}
         </button>
 
-        <p className="text-md">Haven't created an account yet? Register <a className="text-blue-500" href="/signup">here</a></p>
+        <p className="text-md">Haven&apos;t created an account yet? Register <a className="text-blue-500" href="/signup">here</a></p>
       </form>
     </div>
   );

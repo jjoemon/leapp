@@ -15,7 +15,8 @@ export async function POST(req: Request) {
 
   // Only allow specific keys to update
   const allowedUpdates = ["name", "preferences.theme", "preferences.language", "preferences.notifications"];
-  const update: Record<string, any> = {};
+  
+  const update: Record<string, unknown> = {};
   for (const key of allowedUpdates) {
     const value = key.split('.').reduce((obj, k) => obj?.[k], body);
     if (value !== undefined) {
