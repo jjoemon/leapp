@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  
   // ✅ Remove deprecated options
   // swcMinify is now enabled by default — no need to include it
   // experimental.turbo is deprecated — use turbopack instead
