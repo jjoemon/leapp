@@ -1,15 +1,17 @@
-import { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  experimental: {
-    turbo: {}, // Empty object instead of boolean to satisfy Turbopack
-  },
+  // ✅ Remove deprecated options
+  // swcMinify is now enabled by default — no need to include it
+  // experimental.turbo is deprecated — use turbopack instead
 
-  outputFileTracingRoot: __dirname,
+  // ✅ If you want to use Turbopack (optional, faster dev builds):
+  turbopack: {},
 
-  swcMinify: true,
+  // ✅ Optional for monorepos or custom paths
+  outputFileTracingRoot: process.cwd(),
 };
 
 export default nextConfig;
