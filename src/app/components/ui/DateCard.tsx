@@ -58,7 +58,7 @@ export default function DateCard({
   const locale =
     typeof navigator !== 'undefined' ? navigator.language : 'en-GB';
 
-  // 🕒 Time: hour + minute only
+  // 🕒 Time string
   const timeStr = useMemo(() => {
     if (!now) return '—';
     return new Intl.DateTimeFormat(locale, {
@@ -69,7 +69,7 @@ export default function DateCard({
     }).format(now);
   }, [now, locale, hour12, timeZone]);
 
-  // 📅 Date: short form
+  // 📅 Date string
   const dateStr = useMemo(() => {
     if (!now) return '—';
     return new Intl.DateTimeFormat(locale, {
@@ -80,6 +80,7 @@ export default function DateCard({
     }).format(now);
   }, [now, locale, timeZone]);
 
+  // 🕓 Timezone short name
   const tzShort = useMemo(() => {
     if (!now) return '';
     const parts = new Intl.DateTimeFormat(locale, {
@@ -91,6 +92,7 @@ export default function DateCard({
     return parts ?? '';
   }, [now, locale, timeZone]);
 
+  // 🌍 Optional geolocation
   async function handleUsePreciseLocation() {
     if (!('geolocation' in navigator)) {
       setLocStatus('error');
@@ -124,23 +126,27 @@ export default function DateCard({
   }
 
   return (
-    <div
-      className={`w-full max-w-sm md:max-w-md rounded-xl bg-black/80 shadow-lg backdrop-blur-md p-3 text-white flex flex-col gap-1 ${className}`}
-    >
-      {/* Top line: time + date + timezone */}
+
+  <div
+    className={`w-full rounded-2xl bg-black shadow-md backdrop-blur-md
+                p-3 text-white flex flex-col gap-2 text-sm sm:text-base
+                font-medium ${className}`}
+  >
+
+      {/* Top line: time + date */}
       <div
-        className="flex items-center justify-between text-base md:text-lg font-semibold"
+        className="flex items-center justify-between font-semibold"
         suppressHydrationWarning
       >
         <span>
           {mounted ? `${timeStr}` : '—'}{' '}
-          <span className="text-sm opacity-70">{tzShort}</span>
+          <span className="text-xs opacity-70">{tzShort}</span>
         </span>
-        <span className="text-sm opacity-80">{mounted ? dateStr : '—'}</span>
+        <span className="text-xs opacity-80">{mounted ? dateStr : '—'}</span>
       </div>
 
       {/* Bottom line: location */}
-      <div className="flex items-center justify-between text-sm">
+      <div className="flex items-center justify-between text-xs sm:text-sm">
         <span className="truncate">
           {location?.city || location?.region || location?.country ? (
             <>

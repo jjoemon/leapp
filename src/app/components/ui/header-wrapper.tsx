@@ -9,7 +9,7 @@ export default function HeaderWrapper() {
 
   return (
     <Header
-      title="Games & Learning"
+      title="Roots & Horizons"
       isSignedIn={isSignedIn}
       onSignOut={() => signOut({ callbackUrl: "/" })}
     />

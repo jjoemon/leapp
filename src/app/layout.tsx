@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "gLearn - Games & Learning",
+  title: "RooHo! - Roots & Horizons",
   description: "created by Joemon Jose",
 };
 

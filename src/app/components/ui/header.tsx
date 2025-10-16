@@ -20,7 +20,7 @@ export default function Header({ title, isSignedIn, onSignOut }: HeaderProps) {
   const userInitials = "U"; // fallback or pass initials as a prop if needed
 
   return (
-    <header className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-black text-white">
+    <header className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-black text-white m=0 p=0">
       {/* Left: Logo */}
       <div className="flex-shrink-0 w-auto flex items-center">
         <AcmeLogo />

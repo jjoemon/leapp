@@ -12,7 +12,7 @@ export default function AcmeLogo() {
       <Link href="/" className="inline-block">
         <span className="font-extrabold tracking-tight leading-none
                          text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-          gLearn!
+        RooHo!
         </span>
       </Link>
     </div>
