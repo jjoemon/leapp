@@ -3,15 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
-  
-  // ✅ Remove deprecated options
-  // swcMinify is now enabled by default — no need to include it
-  // experimental.turbo is deprecated — use turbopack instead
+  // ✅ swcMinify removed — it's enabled by default
+  // ✅ experimental.turbo removed — replaced with turbopack
 
-  // ✅ If you want to use Turbopack (optional, faster dev builds):
   turbopack: {},
 
-  // ✅ Optional for monorepos or custom paths
   outputFileTracingRoot: process.cwd(),
 };
 
