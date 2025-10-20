@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   // ✅ swcMinify removed — it's enabled by default
   // ✅ experimental.turbo removed — replaced with turbopack
 
-  turbopack: {},
+
 
   outputFileTracingRoot: process.cwd(),
 };
