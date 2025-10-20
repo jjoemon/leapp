@@ -2,18 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react"; // ✅ for the arrow icon
+import { ArrowRight } from "lucide-react";
 import ContentCard from "@/app/components/ui/ContentCard";
 import { useState, useEffect } from "react";
 import { getRandomImage } from "@/app/utils/randomImage";
 import { getRandomBackgroundImage } from "@/app/utils/randomBackground";
 
-const voices = window.speechSynthesis.getVoices();
-const uncleVoice = voices.find(v => v.name.includes("Google UK English Male") || v.name.includes("Microsoft David"));
-
+// ❌ REMOVED: const voices = window.speechSynthesis.getVoices();
+// ❌ REMOVED: const uncleVoice = voices.find(...)
 
 export default function LessonsPage() {
   const router = useRouter();
+  // ℹ️ We'll keep background and imageSrc, even if temporarily unused,
+  // as you're setting them in the useEffect hook.
   const [background, setBackground] = useState("/images/background/background2.jpg");
   const [imageSrc, setImageSrc] = useState<string>("");
 
@@ -30,26 +31,31 @@ export default function LessonsPage() {
 
   // 🎤 Optional: Text-to-speech (can be toggled off later)
   useEffect(() => {
+    // These functions are safe to run here as they don't rely on `window`
+    // and are called within the client-side useEffect.
     setBackground(getRandomBackgroundImage());
     setImageSrc(getRandomImage());
     const message = "Hello! I’m your uncle Kaka. Please, choose your age group.";
 
     const speakOnce = () => {
-      const voices = window.speechSynthesis.getVoices();
-      const uncleVoice = voices.find(v =>
-        v.name.includes("Google UK English Male") || v.name.includes("Microsoft David")
-      );
+      // ✅ FIX: Access window.speechSynthesis *inside* the client-side function
+      if (typeof window !== 'undefined' && window.speechSynthesis) {
+        const voices = window.speechSynthesis.getVoices();
+        const uncleVoice = voices.find(v =>
+          v.name.includes("Google UK English Male") || v.name.includes("Microsoft David")
+        );
 
-      const utterance = new SpeechSynthesisUtterance(message);
-      utterance.rate = 0.95;
-      utterance.pitch = 0.9;
-      utterance.volume = 1;
+        const utterance = new SpeechSynthesisUtterance(message);
+        utterance.rate = 0.95;
+        utterance.pitch = 0.9;
+        utterance.volume = 1;
 
-      if (uncleVoice) {
-        utterance.voice = uncleVoice;
+        if (uncleVoice) {
+          utterance.voice = uncleVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
       }
-
-      window.speechSynthesis.speak(utterance);
     };
 
     // Use a flag to ensure it only runs once
@@ -62,16 +68,20 @@ export default function LessonsPage() {
       }
     };
 
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.onvoiceschanged = handleVoicesChanged;
-    } else {
-      handleVoicesChanged();
-    }
+    // Check if the environment is a browser before accessing window
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+        if (window.speechSynthesis.getVoices().length === 0) {
+          window.speechSynthesis.onvoiceschanged = handleVoicesChanged;
+        } else {
+          handleVoicesChanged();
+        }
 
-    // Cleanup to prevent future triggers
-    return () => {
-      window.speechSynthesis.onvoiceschanged = null;
-    };
+        // Cleanup to prevent future triggers
+        return () => {
+          window.speechSynthesis.onvoiceschanged = null;
+        };
+    }
+    // If not in browser (SSR/prerender), return nothing.
   }, []);
 
   return (
@@ -144,7 +154,6 @@ export default function LessonsPage() {
               ))}
             </div>
           </div>
-
         </ContentCard>
       </div>
     </section>
