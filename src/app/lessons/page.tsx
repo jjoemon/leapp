@@ -4,19 +4,16 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import ContentCard from "@/app/components/ui/ContentCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getRandomImage } from "@/app/utils/randomImage";
 import { getRandomBackgroundImage } from "@/app/utils/randomBackground";
 
-// ❌ REMOVED: const voices = window.speechSynthesis.getVoices();
-// ❌ REMOVED: const uncleVoice = voices.find(...)
-
 export default function LessonsPage() {
   const router = useRouter();
-  // ℹ️ We'll keep background and imageSrc, even if temporarily unused,
-  // as you're setting them in the useEffect hook.
+
   const [background, setBackground] = useState("/images/background/background2.jpg");
   const [imageSrc, setImageSrc] = useState<string>("");
+  const audioRef = useRef<HTMLAudioElement | null>(null); // 🎧 track the current audio
 
   const ageGroupsTop = [
     { label: "3–4", path: "/lessons/eng/maths/3-4/" },
@@ -29,60 +26,37 @@ export default function LessonsPage() {
     { label: "7–8", path: "/lessons/eng/maths/7-8" },
   ];
 
-  // 🎤 Optional: Text-to-speech (can be toggled off later)
+  // 🌈 Background + Voice greeting
   useEffect(() => {
-    // These functions are safe to run here as they don't rely on `window`
-    // and are called within the client-side useEffect.
     setBackground(getRandomBackgroundImage());
     setImageSrc(getRandomImage());
-    const message = "Hello! I’m your uncle Kaka. Please, choose your age group.";
 
-    const speakOnce = () => {
-      // ✅ FIX: Access window.speechSynthesis *inside* the client-side function
-      if (typeof window !== 'undefined' && window.speechSynthesis) {
-        const voices = window.speechSynthesis.getVoices();
-        const uncleVoice = voices.find(v =>
-          v.name.includes("Google UK English Male") || v.name.includes("Microsoft David")
-        );
+    // 👋 Play Uncle Joe’s greeting
+    const audio = new Audio("/sounds/characters/uncle_kaka.mp3");
+    audio.volume = 1;
+    audio.play().catch((err) => console.warn("Audio playback failed:", err));
+    audioRef.current = audio;
 
-        const utterance = new SpeechSynthesisUtterance(message);
-        utterance.rate = 0.95;
-        utterance.pitch = 0.9;
-        utterance.volume = 1;
-
-        if (uncleVoice) {
-          utterance.voice = uncleVoice;
-        }
-
-        window.speechSynthesis.speak(utterance);
+    // 🧹 Cleanup: stop audio when component unmounts or user navigates away
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
       }
+      window.speechSynthesis.cancel();
     };
+  }, []); // 🔁 will re-run each time the user reloads or revisits this page
 
-    // Use a flag to ensure it only runs once
-    let hasSpoken = false;
-
-    const handleVoicesChanged = () => {
-      if (!hasSpoken) {
-        speakOnce();
-        hasSpoken = true;
-      }
-    };
-
-    // Check if the environment is a browser before accessing window
-    if (typeof window !== 'undefined' && window.speechSynthesis) {
-        if (window.speechSynthesis.getVoices().length === 0) {
-          window.speechSynthesis.onvoiceschanged = handleVoicesChanged;
-        } else {
-          handleVoicesChanged();
-        }
-
-        // Cleanup to prevent future triggers
-        return () => {
-          window.speechSynthesis.onvoiceschanged = null;
-        };
+  // 🚪 When user selects an age group, stop any sound or speech first
+  const handleNavigation = (path: string) => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
     }
-    // If not in browser (SSR/prerender), return nothing.
-  }, []);
+    window.speechSynthesis.cancel();
+    router.push(path);
+  };
 
   return (
     <section
@@ -95,7 +69,7 @@ export default function LessonsPage() {
           {/* 🗨️ Greeting */}
           <div className="w-full text-center pt-6 pb-2 z-20">
             <h2 className="bg-white/60 text-black font-semibold text-base rounded-2xl px-4 py-2 backdrop-blur-md shadow-sm inline-block">
-              👋 Hello! I’m your uncle Kaka.<br />Please choose your age group.
+              👋 Hello! I’m your uncle Joe.<br />Please choose your age group.
             </h2>
           </div>
 
@@ -131,7 +105,7 @@ export default function LessonsPage() {
               {ageGroupsTop.map((group) => (
                 <button
                   key={group.label}
-                  onClick={() => router.push(group.path)}
+                  onClick={() => handleNavigation(group.path)}
                   className="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl text-lg shadow-lg transition-all transform hover:scale-105"
                 >
                   {group.label}
@@ -145,7 +119,7 @@ export default function LessonsPage() {
               {ageGroupsBottom.map((group) => (
                 <button
                   key={group.label}
-                  onClick={() => router.push(group.path)}
+                  onClick={() => handleNavigation(group.path)}
                   className="flex items-center justify-center gap-2 bg-blue-400/90 hover:bg-blue-500 text-white font-semibold py-2.5 px-5 rounded-lg text-base shadow-md transition-all transform hover:scale-105"
                 >
                   {group.label}

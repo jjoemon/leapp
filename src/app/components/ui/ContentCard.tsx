@@ -1,28 +1,42 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 type ContentCardProps = {
   children: React.ReactNode;
   className?: string;
-  variant?: 'phoneFrame' | 'responsive';
+  variant?: "phoneFrame" | "responsive";
+  blur?: boolean;      // NEW
 };
 
-export default function ContentCard({ children, className = '', variant = 'phoneFrame' }: ContentCardProps) {
-  if (variant === 'responsive') {
+export default function ContentCard({
+  children,
+  className = "",
+  variant = "responsive",
+  blur = true,
+}: ContentCardProps) {
+  const baseStyle = {
+    backgroundColor: "rgba(255,255,255,0.03)",
+    WebkitBackdropFilter: blur ? "blur(14px)" : "none",
+    backdropFilter: blur ? "blur(14px)" : "none",
+  };
+
+  const cardClass = `
+    rounded-[2rem]
+    border border-white/20
+    shadow-[0_4px_20px_rgba(255,255,255,0.05)]
+    p-4
+    flex flex-col items-center
+    text-white
+    overflow-hidden
+    ${className}
+  `;
+
+  if (variant === "phoneFrame") {
     return (
       <div
-        className={`w-full h-full rounded-[2rem]
-                    bg-transparent border border-white/90
-                    shadow-[0_4px_20px_rgba(255,255,255,0.15)]
-                    backdrop-saturate-150 backdrop-opacity-0
-                    p-4 flex flex-col items-center justify-start
-                    text-white overflow-hidden ${className}`}
-        style={{
-          backgroundColor: 'rgba(255,255,255,0.02)',
-          WebkitBackdropFilter: 'none',
-          backdropFilter: 'none',
-        }}
+        className={`max-w-[390px] aspect-[9/19.5] w-full ${cardClass}`}
+        style={baseStyle}
       >
         {children}
       </div>
@@ -31,19 +45,8 @@ export default function ContentCard({ children, className = '', variant = 'phone
 
   return (
     <div
-      className={`w-full max-w-[390px] aspect-[9/19.5] rounded-[2rem]
-                  bg-transparent
-                  border border-white/90
-                  shadow-[0_4px_20px_rgba(255,255,255,0.15)]
-                  backdrop-saturate-150
-                  backdrop-opacity-0
-                  p-4 flex flex-col items-center justify-start
-                  text-white overflow-hidden ${className}`}
-      style={{
-        backgroundColor: 'rgba(255,255,255,0.02)', // almost invisible — like clear glass reflection
-        WebkitBackdropFilter: 'none', // explicitly disable blur
-        backdropFilter: 'none',
-      }}
+      className={`w-full max-w-[520px] ${cardClass}`}
+      style={baseStyle}
     >
       {children}
     </div>

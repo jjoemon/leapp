@@ -1,53 +1,60 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import LessonTemplate from "@/app/components/ui/LessonTemplate";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+
+const characters = {
+  ladli: {
+    message: "Hi! I’m Ladli, your best friend. Let’s learn and play together!",
+    video: "/images/characters/animations/Larli_Braid.mp4",
+    audio: "/sounds/characters/girl_ladly.mp3",
+  },
+  gabbu: {
+    message: "Hey! I’m Gabbu, your friend. Ready for a fun challenge?",
+    video: "/images/characters/animations/Gabbu_and_YoYo(A).mp4",
+    audio: "/sounds/characters/boy_gabbu.mp3",
+  },
+};
 
 export default function Age3to4Page() {
   const router = useRouter();
-  const [selectedCharacter, setSelectedCharacter] = useState<"ladli" | "gabbu">("ladli");
+  const [selectedCharacter, setSelectedCharacter] = useState("ladli");
 
   useEffect(() => {
-    const chars: ("ladli" | "gabbu")[] = ["ladli", "gabbu"];
-    const chosen = chars[Math.floor(Math.random() * chars.length)];
-    setSelectedCharacter(chosen);
+    const choice = Math.random() < 0.5 ? "ladli" : "gabbu";
+    setSelectedCharacter(choice);
 
-    const speakIntro = () => {
-      const msg =
-        chosen === "ladli"
-          ? "Hi! I’m Ladli, your best friend. Let’s learn and play together!"
-          : "Hey! I’m Gabbu, your friend. Ready for a fun challenge?";
-      const u = new SpeechSynthesisUtterance(msg);
-      u.rate = 0.95;
-      u.pitch = 0.9;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(u);
+    // stop any active speech synthesis
+    window.speechSynthesis.cancel();
+
+    const audio = new Audio(characters[choice].audio);
+    audio.volume = 1.0;
+
+    // Attempt autoplay
+    const playAudio = () => {
+      audio.play().catch(() => {
+        // Fallback: wait for a user interaction
+        const resume = () => {
+          audio.play();
+          window.removeEventListener("click", resume);
+          window.removeEventListener("touchstart", resume);
+        };
+        window.addEventListener("click", resume, { once: true });
+        window.addEventListener("touchstart", resume, { once: true });
+      });
     };
 
-    if (window.speechSynthesis.getVoices().length === 0)
-      window.speechSynthesis.onvoiceschanged = speakIntro;
-    else speakIntro();
+    playAudio();
 
     return () => {
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.onvoiceschanged = null;
+      audio.pause();
+      audio.currentTime = 0;
     };
   }, []);
 
-  const characters = {
-    ladli: {
-      name: "Ladli",
-      description: "Hi! I’m Ladli, your best friend. Let’s learn and play together!",
-      video: "/images/characters/animations/Larli_Braid.mp4",
-    },
-    gabbu: {
-      name: "Gabbu",
-      description: "Hey! I’m Gabbu, your friend. Ready for a fun challenge?",
-      video: "/images/characters/animations/Gabbu_and_YoYo(A).mp4",
-    },
-  };
   const c = characters[selectedCharacter];
 
   const levels = [
@@ -58,57 +65,22 @@ export default function Age3to4Page() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-start w-full pt-6 pb-10">
-      {/* speech bubble */}
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="relative text-center mb-4"
-      >
-        <div className="relative inline-block bg-white/90 text-black text-lg font-medium px-5 py-3 rounded-3xl shadow-md max-w-xs">
-          {c.description}
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-[-10px] w-0 h-0 border-l-[10px] border-r-[10px] border-t-[10px] border-l-transparent border-r-transparent border-t-white/90"></div>
-        </div>
-      </motion.div>
-
-      {/* animated character */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="mb-6"
-      >
-        <video
-          src={c.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-64 h-64 rounded-2xl shadow-xl object-contain"
-        />
-      </motion.div>
-
-      {/* level buttons */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="grid grid-cols-1 gap-4 w-full max-w-sm"
-      >
-        {levels.map(l => (
+    <LessonTemplate characterMessage={c.message} videoSrc={c.video}>
+      {/* Level Buttons */}
+      <div className="grid grid-cols-1 gap-4 w-full max-w-sm">
+        {levels.map((l) => (
           <motion.button
             key={l.label}
             onClick={() => router.push(l.path)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center justify-between bg-blue-500/80 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-xl text-lg shadow-md transition-all backdrop-blur-sm"
+            className="flex items-center justify-between bg-blue-500/80 hover:bg-blue-600 text-white font-semibold py-3 px-5 rounded-xl text-lg shadow-md"
           >
-            <span>{l.label}</span>
+            {l.label}
             <ArrowRight className="w-6 h-6" />
           </motion.button>
         ))}
-      </motion.div>
-    </div>
+      </div>
+    </LessonTemplate>
   );
 }
